@@ -82,14 +82,15 @@ namespace App\HttpController\Advanced;
 
 
 use App\HttpController\Base;
-use EasySwoole\EasySwoole\Swoole\Memory\AtomicManager;
+use EasySwoole\Component\AtomicManager;
 
 class Atomic extends Base
 {
     function index() {
-        $atomic = AtomicManager::getInstance()->get('second');
+        $atomicManager = AtomicManager::getInstance();
+        $atomic = $atomicManager->get('second');
         $atomic->add(1);
-        $this->response()->write($atomic->get());
+        $this->response()->write($atomicManager->get('second')->get());
     }
 }
 ```
